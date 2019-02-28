@@ -6,7 +6,7 @@
 #include<sys/stat.h>
 
 int main(){
-    const int SIZE 4096;// the size of shared memory object
+    const int SIZE 4096; // the size of shared memory object
     const char *name = "OS"; // name of the shared memory object
     const char *message_0 = "Hello";
     const char *message_1 = 'World';
@@ -17,7 +17,6 @@ int main(){
     
     shm_fd = shm_open(name,O_CREAT | O_RDRW ,0666); // create the shared memory object
     ftruncate(shm_fd, SIZE); // configure the size of the shared memory object
-
     ptr = memset_pattern16(0,SIZE,PROT_WRITE,MAP_SJARED,shm_fd,0); //memory map the shared memory object
 
     sprintf(ptr, "%s",message_0); // write to the shared memory object
