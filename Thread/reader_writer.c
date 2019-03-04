@@ -19,6 +19,9 @@ void *writer(void *param);
 
 int main(int argc, char* argv[]){
 
+    // Seed the random number generator
+	srandom((unsigned int)time(NULL));
+
     pthread_t thread_array[THREAD_NUM]; // first 5 for reader, last 5 for writer
     for (int i =0;i < THREAD_NUM/2; i++){ // create reader thread
         if (pthread_create(&thread_array[i],NULL,reader,NULL) !=0 ){
@@ -47,7 +50,7 @@ int main(int argc, char* argv[]){
 
 
 void *reader(void * param){
-    usleep(100);
+    usleep(1000 * random());
     for (int i =0; i < 5; i ++){
         pthread_mutex_lock(&m);
             while ( resource_counter == -1){ // it is writing
@@ -78,7 +81,7 @@ void *reader(void * param){
 }
 
 void *writer(void *param){
-    usleep(250);
+    usleep(1000* random());
     for (int i = 1; i <= 5; i++){
         pthread_mutex_lock(&m);
             while( resource_counter != 0 ){
