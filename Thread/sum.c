@@ -1,6 +1,7 @@
 #include<pthread.h>
 #include<stdio.h>
 
+
 int sum;// the data is shared by the threads
 void *runner(void *param); // threads call this function
 int toInt(char[]);
